@@ -1,0 +1,47 @@
+<app-header></app-header>
+
+<ion-content>
+
+  <ion-card-header>
+    <ion-card-title>Detalle de artículos</ion-card-title>
+    <img src="assets/cubiertos_sin_fondo.png" alt="catering-list">
+    <ion-card-subtitle>Y si no te gusta el mojo ...</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-grid>
+    <ion-row *ngFor="let i of items;">
+      <ion-col size="8">
+        <ion-card-content>
+          <ion-avatar>
+            <img *ngIf="i.filename" src="http://localhost:8080/images/{{i.filename}}" alt="image"/>
+          </ion-avatar>
+        
+          <h1>{{i.description}} - {{i.price}}€</h1>
+        </ion-card-content>
+      </ion-col>
+
+      <ion-col size="2">
+        <ion-button type="ios" color="danger"  (click)="presentAlert(i.id, i.description)"> 
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="2">
+        <ion-button type="ios" 
+          color="secondary" 
+          [routerLink]="['/update/']"
+          [queryParams]="{ id: i.id }">
+        <ion-icon slot="end" name="open-outline"></ion-icon>
+        </ion-button> 
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addItem()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
